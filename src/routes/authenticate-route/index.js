@@ -5,9 +5,9 @@ import propsToJS from '../../shared/prop-to-js';
 import {getCookie} from '../../shared/cookies';
 import history from '../history';
 
-const GuestRoute = ({ component: Component, ...rest }) => {
+const AuthenticateRoute = ({ component: Component, ...rest }) => {
     useEffect(() => {
-        if (getCookie('user')) return history.push('/');
+        if (!getCookie('user')) return history.push('/login');
         return; 
     }, []);
 
@@ -30,4 +30,4 @@ const GuestRoute = ({ component: Component, ...rest }) => {
     )
 };
 
-export default propsToJS(GuestRoute);
+export default propsToJS(AuthenticateRoute);

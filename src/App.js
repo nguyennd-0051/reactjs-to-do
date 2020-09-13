@@ -1,29 +1,27 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import 'antd/dist/antd.css';
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 import Routes from './routes';
-import {createBrowserHistory} from 'history';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import configStore from './shared/configStore';
 import rootReducer from './redux/rootReducer';
 import rootSaga from './redux/rootSaga';
+import history from './routes/history';
 import './App.scss';
 
 const initialState = {};
-const history = createBrowserHistory();
 const store = configStore(initialState, history, rootReducer);
 store.runSaga(rootSaga);
 
-function App() {
-  return (
-    <div className="App">
-      <Provider store={store}>
-      <BrowserRouter>
+const App = () => (
+  <div className="App">
+    <Provider store={store}>
+      <Router history={history}>
         <Routes />
-      </BrowserRouter>
-      </Provider>
-    </div>
-  );
-}
+      </Router>
+    </Provider>
+  </div>
+);
 
 export default App;

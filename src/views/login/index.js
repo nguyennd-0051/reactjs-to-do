@@ -1,18 +1,17 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
 import { connect } from 'react-redux';
-import {login} from '../../redux/modules/authenticate';
+import { login } from '../../redux/modules/authenticate';
+import propsToJS from '../../shared/prop-to-js';
 import './login.scss';
 
 const Login = (props) => {
-    const {handleLogin} = props;
+    const { handleLogin } = props;
 
     const onFinish = values => {
-        console.log('Success:', values);
         handleLogin(values);
-      };
+    };
 
-      
     return (
         <>
             <div className='login'>
@@ -68,4 +67,4 @@ const mapDispatchToProps = {
     handleLogin: login
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(propsToJS(Login));
