@@ -1,0 +1,32 @@
+@import "../../shared/app.scss";
+
+.tasks {
+    .ant-collapse {
+        border: none;
+        margin-bottom: 20px;
+    }
+
+    &__column {
+        &--panel {
+            border: none !important;
+
+            .ant-collapse-header {
+                font-weight: bold;
+                font-size: 18px;
+                background: white;
+                display: inline-block;
+            }
+
+            .ant-collapse-content {
+                border: none;
+            }
+
+            .ant-collapse-extra {
+                button {
+                    border: none;
+                    float: none;
+                }
+            }
+        }
+    }
+}
