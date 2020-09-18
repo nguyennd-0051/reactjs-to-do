@@ -9,8 +9,9 @@
     &__column {
         &--panel {
             border: none !important;
-
+            
             .ant-collapse-header {
+                width: 100%;
                 font-weight: bold;
                 font-size: 18px;
                 background: white;
@@ -24,8 +25,18 @@
             .ant-collapse-extra {
                 button {
                     border: none;
-                    float: none;
+                    clear: both;
                 }
+            }
+
+            &--item {
+                display: block;
+                border-top: 1px solid $border-task;
+                padding: 10px 5px;
+            }
+
+            &--item:last-child {
+                border-bottom: 1px solid $border-task;
             }
         }
     }

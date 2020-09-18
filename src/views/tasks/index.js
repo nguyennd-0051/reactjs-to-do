@@ -1,23 +1,31 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext } from 'react-beautiful-dnd';
 import propsToJS from '../../shared/prop-to-js';
 import { getTasksState, fetchTasks } from '../../redux/modules/tasks';
 import Column from './column';
 import './tasks.scss';
 
-const fakeDataTasks = [
-    { id: 1, title: 'task 1', content: 'task 1' },
-    { id: 2, title: 'task 2', content: 'task 2' },
-    { id: 3, title: 'task 3', content: 'task 3' },
-    { id: 4, title: 'task 4', content: 'task 4' },
-    { id: 5, title: 'task 5', content: 'task 5' }
-]
-
-const columns = [
-    { id: 1, title: 'Back log' },
-    { id: 2, title: 'To do' },
-]
+const initialData = {
+    tasks: {
+        'task-1': { id: 'task-1', content: 'Take out the garbage' },
+        'task-2': { id: 'task-2', content: 'Watch my favorte show' },
+        'task-3': { id: 'task-3', content: 'Charge my phone' },
+        'task-4': { id: 'task-4', content: 'Cook dinner' }
+    },
+    columns: [
+        {
+            id: 'column-1',
+            title: 'Back Log',
+            taskIds: ['task-1', 'task-2']
+        },
+        {
+            id: 'column-2',
+            title: 'To do',
+            taskIds: ['task-3', 'task-4']
+        }
+    ]
+};
 
 const Tasks = (props) => {
     const { handleFetchTasks } = props;
@@ -33,11 +41,14 @@ const Tasks = (props) => {
     return (
         <>
             <div className='tasks'>
-                {
-                    columns.map((item) => (
-                        <Column key={item.id} column={item} className='tasks__column' />
-                    ))
-                }
+                <DragDropContext
+                    onDragEnd={() => onDragEnd}
+                >
+                    {initialData.columns.map((column) => {
+                        const tasks = column.taskIds.map(taskId => initialData.tasks[taskId]);
+                        return <Column key={column.id} column={column} tasks={tasks} />;
+                    })}
+                </DragDropContext>
             </div>
         </>
     )
