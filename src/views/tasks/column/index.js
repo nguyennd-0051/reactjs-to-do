@@ -1,8 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Collapse, Popover, Button } from 'antd';
-import {PlusOutlined, EditOutlined, DeleteOutlined} from '@ant-design/icons';
+import { Collapse, Button } from 'antd';
+import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Droppable } from 'react-beautiful-dnd';
 import propsToJS from '../../../shared/prop-to-js';
+import Task from './task';
 
 const { Panel } = Collapse;
 
@@ -26,7 +27,8 @@ const renderExtra = () => (
     </>
 )
 const Column = props => {
-    const { column } = props;
+    console.log(props);
+    const { column, tasks } = props;
 
     return (
         <>
@@ -37,7 +39,22 @@ const Column = props => {
                     extra={renderExtra()}
                     className='tasks__column--panel'
                 >
-                    <p>asdad</p>
+                    <Droppable
+                        droppableId={column.id}
+                    >
+                        {provided => (
+                            <div
+                                ref={provided.innerRef}
+                                {...provided.droppableProps}
+                            >
+                                {
+                                    tasks.map((task, index) => (
+                                        <Task key={task.id} task={task} index={index} />
+                                    ))
+                                }
+                            </div>
+                        )}
+                    </Droppable>
                 </Panel>
             </Collapse>
         </>
